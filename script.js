@@ -23,8 +23,13 @@ delete(){
 
 // placeNumber function places the selected number input by the user into the calculator screen.//
 placeNumber(number){
-    if(number === "." && this.currentCalc.includes(".")) return
-   this.currentCalc = this.currentCalc.toString() + number.toString()
+    if(number === "." && this.currentCalc.includes(".")) return 
+    if(this.currentCalc.length%4 == 2){
+         this.currentCalc = this.currentCalc.toString() + number.toString()  + (',')
+    }else{
+        this.currentCalc = this.currentCalc.toString() + number.toString()
+    }
+    
 }
 
 // selectedOperation function handles the user input of the mathematical operation selected on the calc.// 
