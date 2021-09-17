@@ -10,14 +10,15 @@ class Calculator{
 
 // clear function clears the elements from the calculator taking the current, previous & operation and clearing them.//
 allClear(){
-    this.currentCalc = ""
     this.previousCalc = ""
+    this.currentCalc = ""
     this.operation = undefined
 }
 
 // delete function deletes and removes the elements from the calculator screen.//
 delete(){
-
+    this.currentCalc = this.currentCalc.slice(0, this.currentCalc.length-1 )
+ 
 }
 
 // placeNumber function places the selected number input by the user into the calculator screen.//
@@ -28,13 +29,13 @@ placeNumber(number){
 
 // selectedOperation function handles the user input of the mathematical operation selected on the calc.// 
 selectedOperation(operation){
-    if(this.currentCalc === " ") return
-    if(this.previousCalc !== " "){
+    if(this.currentCalc === "") return
+    if(this.previousCalc !== ""){
         this.compute()
     }
     this.operation = operation
     this.previousCalc = this.currentCalc
-    this.currentCalc = " "
+    this.currentCalc = ""
 }
 
 // compute function handles the computation of the numbers input by the user.//
@@ -72,14 +73,12 @@ updateDisplay(){
 }
 
 
-
-
 // below gets the data class appended to the div classes. //
 const numbersButtons = document.querySelectorAll("[data-numbers]");
 const operationsButtons = document.querySelectorAll("[data-operations]");
-const deleteButton = document.getElementById("data-delete");
+const deleteButton = document.querySelector("[data-delete]");
 const clearButton = document.getElementById("data-all-clear");
-const equalsButton = document.querySelector("[data-equas]");
+const equalsButton = document.querySelector("[data-equals]");
 const previousCalcTextElement = document.querySelector("[data-previous-calc]");
 const currentCalcTextElement = document.querySelector("[data-current-calc]");
 
@@ -109,11 +108,11 @@ equalsButton.addEventListener("click", button => {
 })
 
 clearButton.addEventListener("click", button => {
-    calculator.clear()
+    calculator.allClear()
     calculator.updateDisplay()
 })
 
 deleteButton.addEventListener("click", button => {
-    calculator.allClear()
+    calculator.delete()
     calculator.updateDisplay()
 })
