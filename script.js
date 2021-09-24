@@ -17,19 +17,15 @@ allClear(){
 
 // delete function deletes and removes the elements from the calculator screen.//
 delete(){
-    this.currentCalc = this.currentCalc.slice(0, this.currentCalc.length-1 )
+    this.currentCalc = this.currentCalc.slice(0, this.currentCalc.length-1)
  
 }
 
 // placeNumber function places the selected number input by the user into the calculator screen.//
 placeNumber(number){
     if(number === "." && this.currentCalc.includes(".")) return 
-    if(this.currentCalc.length%4 == 2){
-         this.currentCalc = this.currentCalc.toString() + number.toString()  + (',')
-    }else{
-        this.currentCalc = this.currentCalc.toString() + number.toString()
-    }
-    
+     this.currentCalc = this.currentCalc.toString()+ number.toString() 
+     // working on the below code.//
 }
 
 // selectedOperation function handles the user input of the mathematical operation selected on the calc.// 
@@ -69,12 +65,66 @@ compute(){
   this.previousCalc = ""
 }
 
-//
-updateDisplay(){
- this.currentCalcTextElement.innerText = this.currentCalc
- this.previousCalcTextElement.innerText = this.previousCalc
+
+
+
+
+    // return stripCommas = this.currentCalc.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+
+// getDisplayElement(number){
+//     // const stringNumber = number.toString()
+//     // // const integerDigits = parseFloat(stringNumber.split('.')[0])
+//     // // const decimalDigits = stringNumber.split('.')[1]
+//     // // let integerDisplay
+//     // // if (isNaN(integerDigits)) {
+//     // //   integerDisplay = ''
+//     // // } else {
+//     // //   integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
+//     // // }
+//     // // if (decimalDigits != null) {
+//     // //   return `${integerDisplay}.${decimalDigits}`
+//     // // } else {
+//     // //   return integerDisplay
+//     // // }
+// }
+
+getDisplayElement(calcStringNumber){ 
+     let calcStringNumber = number.toString();
+     let calcParts = [];
+    // checks for decimal & only allow (1) decimal. stops any other entered.//
+    if(calcStringNumber === "." && this.currentCalc.includes(".")){
+        return
+    }
+    // asign calcStringNumber with split("")[method] @ (".");
+    calcParts = calcStringNumber.split(".");
+    // get the parts of the calcStringNumber.split(".") which would be an array of (2) parts.//
+    calcParts[0];  // this calcParts[0] holds everything before the (".")decimal place.//
+    calcParts[1];  // this calcParts[1] holds everything after the (".")decimal place.//
+    // now have to get everything from calcParts[0] the tring array of the calcParts.//
+    Array.from(calcParts[0]);
+    // this step remove all commas from calcParts[0].//
+    calcParts[0] = calcParts[0].split(",").join("");
+    // declare variable i to take value of calcParts[0].length-3.//
+     let i = calcParts[0].length-3;
+    // this step need a loop to travel through calcParts[0] array 
+    
+    // create variable to hold the calculator number into a string.//
+    //  let calsStringNumber = number.toString();
+
+    // this.currentCalc = this.currentCalc.
+    return calcStringNumber
 }
 
+//
+updateDisplay(){
+ this.currentCalcTextElement.innerText = this.getDisplayElement(this.currentCalc)
+//  this.previousCalcTextElement = this.previousCalc
+ if(this.operation != null){
+     this.previousCalcTextElement.innerText = `${this.getDisplayElement(this.previousCalc)} ${this.operation}`
+ } else{
+     this.previousCalcTextElement.innerText = ""
+ }
+}
 }
 
 
